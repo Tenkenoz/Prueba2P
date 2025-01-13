@@ -66,16 +66,17 @@ let productos = [
     }
 
     reportesAvanzados(){
-        let suma
-       for(let i of this.ventasRealizadas){
-        console.log(`Se vendio ${i.cantidad} unidades de ${i.nombreProducto} en ${i.Fecha}.`)
-        suma += this.ventasRealizadas.precio
-    }
-        ProductoMasVendido=this.producto.reduce((producto,aux) =>(producto>aux?producto:aux))
-        console.log(`Los ingresos generados fueron de ${suma} dolares`)
-        console.log(`El producto mas vendido fue ${ProductoMasVendido}`)
-    }
-
+        let suma = 0;
+        for(let i of this.ventasRealizadas){
+          console.log(`Se vendio ${i.cantidad} unidades de ${i.producto} en ${i.Fecha}.`);
+          suma += i.cantidad * i.precio;
+        }
+        const productoMasVendido = this.ventasRealizadas.reduce((max, current) => {
+          return max.cantidad > current.cantidad ? max : current;
+        });
+        console.log(`Los ingresos generados fueron de ${suma} dolares`);
+        console.log(`El producto mas vendido fue ${productoMasVendido.producto}`);
+      }
   }
   Ventas = new Venta(productos)
   Ventas.listarProductos()
